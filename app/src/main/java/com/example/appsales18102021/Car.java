@@ -3,7 +3,9 @@ package com.example.appsales18102021;
 import android.util.Log;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class Car {
     Engine engine;
     Wheel wheel;
