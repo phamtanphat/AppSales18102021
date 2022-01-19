@@ -20,7 +20,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DaggerMainComponent.create().injectMain(this);
+        DaggerMainComponent
+                .builder()
+                .context(getApplicationContext())
+                .bindWheel(new Wheel(8,getApplicationContext()))
+                .bindEngine(new Engine("8 mã lực"))
+                .build()
+                .injectMain(this);
 
         car.showCarInfo();
         Log.d("BBB",wheel.quantily + "");
