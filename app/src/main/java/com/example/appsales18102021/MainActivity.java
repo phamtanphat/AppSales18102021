@@ -13,9 +13,6 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Inject
-    Car car;
-
     Button mBtnNavigateScreen2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +29,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        DaggerMainComponent
-                .builder()
-                .context(getApplicationContext())
-                .build()
-                .injectMain(this);
-
-        Log.d("BBB", car.toString());
+        Log.d("BBB",((MyApplication)getApplication()).mainComponent.getCar() + "");
     }
 }

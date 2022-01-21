@@ -11,8 +11,9 @@ import dagger.Component;
 @Component(modules = CarModule.class)
 public interface MainComponent {
 
-   void injectMain(MainActivity mainActivity);
-   void injectMain2(MainActivity2 mainActivity2);
+   void injectMain(MyApplication myApplication);
+
+   Car getCar();
 
    @Component.Builder
    interface Builder{
