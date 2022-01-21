@@ -1,5 +1,6 @@
 package com.example.appsales18102021.di.activities;
 
+import com.example.appsales18102021.di.viewmodels.AuthViewModelModule;
 import com.example.appsales18102021.presentation.features.login.LoginActivity;
 
 import dagger.Module;
@@ -8,6 +9,8 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilderModule {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+            modules = AuthViewModelModule.class
+    )
     public abstract LoginActivity bindContributeLoginActivity();
 }

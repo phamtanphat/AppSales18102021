@@ -11,6 +11,7 @@ import dagger.Provides;
 
 @Module
 public class ViewModelFactoryModule {
+
     @Singleton
     @Provides
     public ViewModelProvider.Factory bindViewModelFactory(ViewModelFactoryProvider viewModelFactory){

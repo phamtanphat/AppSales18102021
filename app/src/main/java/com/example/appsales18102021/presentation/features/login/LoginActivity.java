@@ -3,10 +3,14 @@ package com.example.appsales18102021.presentation.features.login;
 import android.os.Bundle;
 
 import com.example.appsales18102021.R;
+import com.example.appsales18102021.presentation.viewmodel.AuthViewModel;
+
+import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class LoginActivity extends DaggerAppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
