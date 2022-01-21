@@ -7,13 +7,19 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-public class MainActivity2 extends AppCompatActivity {
+import dagger.android.DaggerActivity;
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class MainActivity2 extends DaggerAppCompatActivity {
+
+    @Inject
+    Car car;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        Log.d("BBB",((MyApplication)getApplication()).mainComponent.getCar() + "");
+        Log.d("BBB",car + "");
     }
 }

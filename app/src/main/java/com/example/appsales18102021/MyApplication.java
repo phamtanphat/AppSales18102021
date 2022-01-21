@@ -1,21 +1,12 @@
 package com.example.appsales18102021;
 
-import android.app.Application;
+import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
 
-public class MyApplication extends Application {
+public class MyApplication extends DaggerApplication {
 
-    MainComponent mainComponent;
     @Override
-    public void onCreate() {
-        super.onCreate();
-
-        mainComponent = DaggerMainComponent
-                .builder()
-                .context(this)
-                .build();
-
-        mainComponent.injectMain(this);
-
-
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerMainComponent.builder().context(this).build();
     }
 }

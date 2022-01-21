@@ -6,14 +6,16 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.AndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
-@Component(modules = CarModule.class)
-public interface MainComponent {
-
-   void injectMain(MyApplication myApplication);
-
-   Car getCar();
+@Component(modules = {
+        AndroidSupportInjectionModule.class,
+        ActivityBuilderModule.class,
+        CarModule.class
+})
+public interface MainComponent extends AndroidInjector<MyApplication> {
 
    @Component.Builder
    interface Builder{

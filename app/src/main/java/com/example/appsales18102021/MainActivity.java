@@ -11,7 +11,13 @@ import android.widget.Button;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity {
+import dagger.android.DaggerActivity;
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class MainActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    Car car;
 
     Button mBtnNavigateScreen2;
     @Override
@@ -29,6 +35,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("BBB",((MyApplication)getApplication()).mainComponent.getCar() + "");
+        Log.d("BBB",car + "");
     }
 }
