@@ -2,6 +2,7 @@ package com.example.appsales18102021.presentation.viewmodel;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -9,14 +10,21 @@ import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.UserModel;
 import com.example.appsales18102021.presentation.repositories.AuthRepository;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import javax.inject.Inject;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AuthViewModel extends ViewModel{
 //    private MutableLiveData<>
+    private MutableLiveData<AppResource<UserModel>> userModelLiveData = new MutableLiveData<>();
     private AuthRepository authRepository;
 
     @Inject
@@ -24,16 +32,39 @@ public class AuthViewModel extends ViewModel{
         this.authRepository = authRepository;
     }
 
+    public LiveData<AppResource<UserModel>> getUserModelData(){
+        return userModelLiveData;
+    }
+
     public void signIn(UserModel userModel){
+        userModelLiveData.setValue(new AppResource.Loading<>(null));
         authRepository.signIn(userModel).enqueue(new Callback<AppResource<UserModel>>() {
             @Override
             public void onResponse(Call<AppResource<UserModel>> call, Response<AppResource<UserModel>> response) {
-                Log.d("BBB",response.body().toString());
+                if (response.isSuccessful()){
+                    AppResource<UserModel> data = response.body();
+                    if (data != null && data.data != null){
+                        userModelLiveData.setValue(new AppResource.Success(data.data));
+                    }
+                }
+                if (response.errorBody() != null){
+                    ResponseBody errorBody = response.errorBody();
+                    try {
+                        JSONObject jsonObject = new JSONObject(errorBody.string());
+                        String message = jsonObject.getString("message");
+                        userModelLiveData.setValue(new AppResource.Error<>(message));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
 
             @Override
             public void onFailure(Call<AppResource<UserModel>> call, Throwable t) {
-                Log.d("BBB",t.getMessage().toString());
+                userModelLiveData.setValue(new AppResource.Error<>(t.getMessage()));
             }
         });
     }
