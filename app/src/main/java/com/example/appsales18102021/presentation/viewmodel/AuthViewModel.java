@@ -24,7 +24,7 @@ public class AuthViewModel extends ViewModel{
         this.authRepository = authRepository;
     }
 
-    void signIn(UserModel userModel){
+    public void signIn(UserModel userModel){
         authRepository.signIn(userModel).enqueue(new Callback<AppResource<UserModel>>() {
             @Override
             public void onResponse(Call<AppResource<UserModel>> call, Response<AppResource<UserModel>> response) {

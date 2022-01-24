@@ -1,6 +1,5 @@
 package com.example.appsales18102021.data.datasource.remote.api;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.UserModel;
 
