@@ -1,5 +1,6 @@
 package com.example.appsales18102021.presentation.features.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,15 +8,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appsales18102021.R;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.UserModel;
+import com.example.appsales18102021.presentation.features.register.RegisterActivity;
 import com.example.appsales18102021.presentation.viewmodel.AuthViewModel;
-import com.example.appsales18102021.presentation.viewmodel.ViewModelFactoryProvider;
 import com.google.android.material.textfield.TextInputEditText;
 
 import javax.inject.Inject;
@@ -29,7 +28,7 @@ public class LoginActivity extends DaggerAppCompatActivity {
 
     Button mBtnSignIn;
     TextInputEditText mTxtInputEdittextEmail,mTxtInputEdittextPassword;
-    TextView mTvSignUp;
+    TextView mTvRegister;
     View mLoading;
     Toolbar mToolbar;
 
@@ -41,7 +40,7 @@ public class LoginActivity extends DaggerAppCompatActivity {
         mBtnSignIn = findViewById(R.id.buttonSignIn);
         mTxtInputEdittextEmail = findViewById(R.id.textEditEmail);
         mTxtInputEdittextPassword = findViewById(R.id.textEditPassword);
-        mTvSignUp = findViewById(R.id.textViewSignUp);
+        mTvRegister = findViewById(R.id.textViewRegister);
         mLoading = findViewById(R.id.includeLoading);
         mToolbar = findViewById(R.id.toolbarLogin);
 
@@ -82,6 +81,13 @@ public class LoginActivity extends DaggerAppCompatActivity {
         });
 
 
+        mTvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent view = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(view);
+            }
+        });
 
     }
 }

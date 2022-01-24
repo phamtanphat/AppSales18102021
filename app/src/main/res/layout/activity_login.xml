@@ -116,15 +116,15 @@
             android:layout_height="wrap_content"
             android:text="Don't have an account"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textViewSignUp"
+            app:layout_constraintEnd_toStartOf="@id/textViewRegister"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewSignUp"
+            android:id="@+id/textViewRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="Register"
             android:textColor="#F65D52"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

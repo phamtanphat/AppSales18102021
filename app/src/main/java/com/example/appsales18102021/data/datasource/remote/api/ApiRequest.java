@@ -11,4 +11,7 @@ public interface ApiRequest {
 
     @POST("api/v1/user/sign-in")
     Call<AppResource<UserModel>> signIn(@Body UserModel userModel);
+
+    @POST("api/v1/user/sign-up")
+    Call<AppResource<UserModel>> signUp(@Body UserModel userModel);
 }

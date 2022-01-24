@@ -18,6 +18,14 @@ public class UserModel {
         this.password = password;
     }
 
+    public UserModel(String fullName, String email, String password, String phone, String address) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -89,5 +97,8 @@ public class UserModel {
     public void setToken(String token) {
         this.token = token;
     }
+
+
+
 
 }

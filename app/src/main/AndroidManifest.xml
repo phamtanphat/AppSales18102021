@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appsales18102021">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -11,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppSales18102021">
+        <activity
+            android:name=".presentation.features.register.RegisterActivity"
+            android:exported="true" />
         <activity
             android:name=".presentation.features.login.LoginActivity"
             android:exported="true">
