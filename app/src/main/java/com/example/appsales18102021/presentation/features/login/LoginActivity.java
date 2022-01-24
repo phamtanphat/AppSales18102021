@@ -16,16 +16,12 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class LoginActivity extends DaggerAppCompatActivity {
 
     @Inject
-    ViewModelFactoryProvider provider;
-
     AuthViewModel mAuthViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        mAuthViewModel = new ViewModelProvider(this,provider).get(AuthViewModel.class);
 
         mAuthViewModel.signIn(new UserModel("demo@gmail.com","12345678"));
     }
