@@ -1,6 +1,7 @@
 package com.example.appsales18102021.di.activities;
 
 import com.example.appsales18102021.di.viewmodels.AuthViewModelModule;
+import com.example.appsales18102021.di.viewmodels.FoodViewModelModule;
 import com.example.appsales18102021.presentation.features.home.HomeActivity;
 import com.example.appsales18102021.presentation.features.login.LoginActivity;
 import com.example.appsales18102021.presentation.features.register.RegisterActivity;
@@ -25,6 +26,8 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector
     public abstract SplashActivity bindContributeSplashActivity();
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+            modules = FoodViewModelModule.class
+    )
     public abstract HomeActivity bindContributeHomeActivity();
 }

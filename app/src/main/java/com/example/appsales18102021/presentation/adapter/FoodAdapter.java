@@ -85,7 +85,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         void bind(FoodModel foodModel , Context context) {
             Glide
                     .with(context)
-                    .load(foodModel.getImages().get(0))
+                    .load(foodModel.getImages().get(0).getImageUrl())
                     .placeholder(R.mipmap.ic_launcher)
                     .into(img);
 
