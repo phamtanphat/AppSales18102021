@@ -1,6 +1,7 @@
 package com.example.appsales18102021.presentation.features.login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer;
 import com.example.appsales18102021.R;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.UserModel;
+import com.example.appsales18102021.presentation.features.home.HomeActivity;
 import com.example.appsales18102021.presentation.features.register.RegisterActivity;
 import com.example.appsales18102021.presentation.viewmodel.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
@@ -61,7 +63,8 @@ public class LoginActivity extends DaggerAppCompatActivity {
                             break;
                         case SUCCESS:
                             mLoading.setVisibility(View.GONE);
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            Intent view = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(view);
                             break;
                     }
                 }
