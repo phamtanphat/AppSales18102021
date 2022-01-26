@@ -17,18 +17,20 @@
             android:exported="false" />
         <activity
             android:name=".presentation.features.splash.SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.features.register.RegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".presentation.features.login.LoginActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.features.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.features.login.LoginActivity"
+            android:exported="false">
+
         </activity>
     </application>
 

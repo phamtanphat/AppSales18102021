@@ -15,7 +15,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
         app:lottie_rawRes="@raw/animation_new_year"
         app:lottie_renderMode="automatic"
         app:lottie_repeatMode="reverse" />
