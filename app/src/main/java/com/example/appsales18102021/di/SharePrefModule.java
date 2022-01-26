@@ -5,11 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.appsales18102021.common.Constant;
-import com.example.appsales18102021.data.datasource.local.SharePref;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 

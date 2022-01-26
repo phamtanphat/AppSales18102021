@@ -7,6 +7,8 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.appsales18102021.common.Constant;
+import com.example.appsales18102021.data.datasource.local.SharePref;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.UserModel;
 import com.example.appsales18102021.presentation.repositories.AuthRepository;
@@ -25,12 +27,15 @@ import retrofit2.Response;
 
 public class AuthViewModel extends ViewModel{
 //    private MutableLiveData<>
+
     private MutableLiveData<AppResource<UserModel>> userModelLiveData = new MediatorLiveData<>();
     private AuthRepository authRepository;
+    private SharePref sharePref;
 
     @Inject
-    public AuthViewModel(AuthRepository authRepository){
+    public AuthViewModel(AuthRepository authRepository , SharePref sharePref){
         this.authRepository = authRepository;
+        this.sharePref = sharePref;
     }
 
     public LiveData<AppResource<UserModel>> getUserModelData(){
@@ -45,6 +50,7 @@ public class AuthViewModel extends ViewModel{
                 if (response.isSuccessful()){
                     AppResource<UserModel> data = response.body();
                     if (data != null && data.data != null){
+                        sharePref.setToken(Constant.KEY_TOKEN,data.data.getToken());
                         userModelLiveData.setValue(new AppResource.Success(data.data));
                     }
                 }
