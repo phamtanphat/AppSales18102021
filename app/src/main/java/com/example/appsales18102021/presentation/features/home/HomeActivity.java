@@ -2,7 +2,10 @@ package com.example.appsales18102021.presentation.features.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appsales18102021.R;
+import com.example.appsales18102021.common.Constant;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.FoodModel;
 import com.example.appsales18102021.presentation.adapter.FoodAdapter;
@@ -33,6 +37,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
     RecyclerView mRcvFood;
     View mLoading;
     List<FoodModel> mListFoods;
+    TextView mTxtCountCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,19 @@ public class HomeActivity extends DaggerAppCompatActivity {
         });
 
         mFoodViewModel.fetchListFoods();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.action_cart);
+
+        View actionView = menuItem.getActionView();
+
+        mTxtCountCart = actionView.findViewById(R.id.textViewCart);
+
+
+        return true;
     }
 }
