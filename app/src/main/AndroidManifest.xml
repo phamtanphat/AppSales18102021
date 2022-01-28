@@ -13,11 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppSales18102021">
         <activity
+            android:name=".presentation.features.cart.CartActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.features.home.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.features.splash.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,9 +32,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.features.login.LoginActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>

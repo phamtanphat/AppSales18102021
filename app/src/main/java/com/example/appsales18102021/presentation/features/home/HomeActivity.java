@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +21,7 @@ import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.CartModel;
 import com.example.appsales18102021.data.model.FoodModel;
 import com.example.appsales18102021.presentation.adapter.FoodAdapter;
+import com.example.appsales18102021.presentation.features.cart.CartActivity;
 import com.example.appsales18102021.presentation.features.login.LoginActivity;
 import com.example.appsales18102021.presentation.viewmodel.HomeViewModel;
 
@@ -132,8 +137,25 @@ public class HomeActivity extends DaggerAppCompatActivity {
         mTxtCountCart = actionView.findViewById(R.id.textViewCart);
 
 
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                resultLauncher.launch(intent);
+            }
+        });
         return true;
     }
+
+    private ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                }
+            }
+    );
 
     private void setTotalCart(int total){
         if (total <= 0){
