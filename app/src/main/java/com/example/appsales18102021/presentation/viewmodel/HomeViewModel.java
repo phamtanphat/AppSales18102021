@@ -123,4 +123,44 @@ public class HomeViewModel extends ViewModel {
             }
         });
     }
+
+    public void addToCart(FoodModel foodModel){
+        cartMutable.setValue(new AppResource.Loading<>(null));
+        cartRepository.addToCart(foodModel).enqueue(new Callback<AppResource<CartModel>>() {
+            @Override
+            public void onResponse(Call<AppResource<CartModel>> call, Response<AppResource<CartModel>> response) {
+                if (response.isSuccessful()){
+                    AppResource<CartModel> data = response.body();
+                    if (data != null && data.data != null){
+                        cartMutable.setValue(new AppResource.Success(data.data));
+                    }
+                }
+                if (response.errorBody() != null){
+                    ResponseBody errorBody = response.errorBody();
+                    if (response.code() == 404){
+                        cartMutable.setValue(new AppResource.Error<>("404"));
+                    }else if (response.code() == 401){
+                        cartMutable.setValue(new AppResource.Error<>("401"));
+                    }else{
+                        try {
+                            JSONObject jsonObject = new JSONObject(errorBody.string());
+                            String message = jsonObject.getString("message");
+                            cartMutable.setValue(new AppResource.Error<>(message));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AppResource<CartModel>> call, Throwable t) {
+                cartMutable.setValue(new AppResource.Error<>(t.getMessage()));
+            }
+        });
+    }
 }

@@ -57,6 +57,13 @@ public class HomeActivity extends DaggerAppCompatActivity {
         mRcvFood.setHasFixedSize(true);
         mRcvFood.setAdapter(mFoodAdapter);
 
+        mFoodAdapter.setOnFoodItemListener(new FoodAdapter.OnFoodItemListener() {
+            @Override
+            public void onClick(int position) {
+                mHomeViewModel.addToCart(new FoodModel(mFoodAdapter.getList().get(position).getFoodId()));
+            }
+        });
+
         mHomeViewModel.getListFoods().observe(this, new Observer<AppResource<List<FoodModel>>>() {
             @Override
             public void onChanged(AppResource<List<FoodModel>> listAppResource) {
@@ -107,6 +114,8 @@ public class HomeActivity extends DaggerAppCompatActivity {
                 }
             }
         });
+
+
 
         mHomeViewModel.fetchTotalCart();
         mHomeViewModel.fetchListFoods();

@@ -16,6 +16,10 @@ public class FoodModel {
     private String createdAt;
     private String updatedAt;
 
+    public FoodModel(String foodId) {
+        this.foodId = foodId;
+    }
+
     public String getFoodId() {
         return foodId;
     }

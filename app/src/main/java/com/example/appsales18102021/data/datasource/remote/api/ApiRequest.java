@@ -26,4 +26,7 @@ public interface ApiRequest {
 
     @GET("api/v1/order/count/shopping-cart")
     Call<AppResource<CartModel>> fetchTotalCart();
+
+    @POST("api/v1/order/add-to-cart")
+    Call<AppResource<CartModel>> addToCart(@Body FoodModel foodModel);
 }

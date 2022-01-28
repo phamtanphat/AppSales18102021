@@ -3,6 +3,7 @@ package com.example.appsales18102021.presentation.repositories;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.datasource.remote.api.ApiRequest;
 import com.example.appsales18102021.data.model.CartModel;
+import com.example.appsales18102021.data.model.FoodModel;
 import com.example.appsales18102021.data.model.UserModel;
 
 import javax.inject.Inject;
@@ -19,6 +20,10 @@ public class CartRepository {
 
     public Call<AppResource<CartModel>> fetchTotalCart(){
         return apiRequest.fetchTotalCart();
+    }
+
+    public Call<AppResource<CartModel>> addToCart(FoodModel foodModel){
+        return apiRequest.addToCart(foodModel);
     }
 
 }
