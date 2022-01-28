@@ -13,12 +13,12 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appsales18102021.R;
-import com.example.appsales18102021.common.Constant;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
+import com.example.appsales18102021.data.model.CartModel;
 import com.example.appsales18102021.data.model.FoodModel;
 import com.example.appsales18102021.presentation.adapter.FoodAdapter;
 import com.example.appsales18102021.presentation.features.login.LoginActivity;
-import com.example.appsales18102021.presentation.viewmodel.FoodViewModel;
+import com.example.appsales18102021.presentation.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class HomeActivity extends DaggerAppCompatActivity {
 
     @Inject
-    FoodViewModel mFoodViewModel;
+    HomeViewModel mHomeViewModel;
 
     Toolbar mToolbar;
     FoodAdapter mFoodAdapter;
@@ -57,7 +57,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
         mRcvFood.setHasFixedSize(true);
         mRcvFood.setAdapter(mFoodAdapter);
 
-        mFoodViewModel.getListFoods().observe(this, new Observer<AppResource<List<FoodModel>>>() {
+        mHomeViewModel.getListFoods().observe(this, new Observer<AppResource<List<FoodModel>>>() {
             @Override
             public void onChanged(AppResource<List<FoodModel>> listAppResource) {
                 if (listAppResource != null){
@@ -79,7 +79,37 @@ public class HomeActivity extends DaggerAppCompatActivity {
             }
         });
 
-        mFoodViewModel.fetchListFoods();
+        mHomeViewModel.getTotalCart().observe(this, new Observer<AppResource<CartModel>>() {
+            @Override
+            public void onChanged(AppResource<CartModel> cartModelAppResource) {
+                if (cartModelAppResource != null){
+                    switch (cartModelAppResource.status){
+                        case LOADING:
+                            mLoading.setVisibility(View.VISIBLE);
+                            break;
+                        case ERROR:
+                            mLoading.setVisibility(View.GONE);
+                            if (cartModelAppResource.message.equals("401")){
+                                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else if(cartModelAppResource.message.equals("404")){
+                                setTotalCart(0);
+                            }else{
+                                Toast.makeText(HomeActivity.this, cartModelAppResource.message, Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                        case SUCCESS:
+                            mLoading.setVisibility(View.GONE);
+                            setTotalCart(cartModelAppResource.data.getTotal());
+                            break;
+                    }
+                }
+            }
+        });
+
+        mHomeViewModel.fetchTotalCart();
+        mHomeViewModel.fetchListFoods();
     }
 
     @Override
@@ -94,5 +124,14 @@ public class HomeActivity extends DaggerAppCompatActivity {
 
 
         return true;
+    }
+
+    private void setTotalCart(int total){
+        if (total <= 0){
+            mTxtCountCart.setVisibility(View.GONE);
+        }else{
+            mTxtCountCart.setVisibility(View.VISIBLE);
+            mTxtCountCart.setText(total+"");
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.appsales18102021.data.datasource.remote.api;
 
 import com.example.appsales18102021.data.datasource.remote.AppResource;
+import com.example.appsales18102021.data.model.CartModel;
 import com.example.appsales18102021.data.model.FoodModel;
 import com.example.appsales18102021.data.model.UserModel;
 
@@ -22,4 +23,7 @@ public interface ApiRequest {
 
     @GET("api/v1/food/list/0/10")
     Call<AppResource<List<FoodModel>>> fetchListFoods();
+
+    @GET("api/v1/order/count/shopping-cart")
+    Call<AppResource<CartModel>> fetchTotalCart();
 }
