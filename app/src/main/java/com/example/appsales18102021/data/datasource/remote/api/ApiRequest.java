@@ -8,6 +8,7 @@ import com.example.appsales18102021.data.model.UserModel;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -33,4 +34,7 @@ public interface ApiRequest {
 
     @GET("api/v1/order/shopping-cart")
     Call<AppResource<OrderModel>> fetchOrder();
+
+    @POST("api/v1/order/update")
+    Call<AppResource<String>> updateOrder(@Body RequestBody params);
 }

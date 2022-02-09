@@ -2,6 +2,7 @@ package com.example.appsales18102021.presentation.features.order;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class OrderActivity extends DaggerAppCompatActivity {
     OrderAdapter mOrderAdapter;
     RecyclerView mRcvOrder;
     View mLoading;
+    String orderId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,10 @@ public class OrderActivity extends DaggerAppCompatActivity {
         mOrderAdapter = new OrderAdapter();
         mRcvOrder.setHasFixedSize(true);
         mRcvOrder.setAdapter(mOrderAdapter);
+
+        // get data
+        orderId = getIntent().getStringExtra("orderId");
+
 
         mOrderViewModel.getUserModelData().observe(this, new Observer<AppResource<OrderModel>>() {
             @Override
@@ -69,6 +75,47 @@ public class OrderActivity extends DaggerAppCompatActivity {
                 }
             }
         });
+
+        mOrderViewModel.getCodeUpdateData().observe(this, new Observer<AppResource<String>>() {
+            @Override
+            public void onChanged(AppResource<String> messageResponse) {
+                if (messageResponse != null){
+                    switch (messageResponse.status){
+                        case LOADING:
+                            mLoading.setVisibility(View.VISIBLE);
+                            break;
+                        case ERROR:
+                            mLoading.setVisibility(View.GONE);
+                            Toast.makeText(OrderActivity.this, messageResponse.message, Toast.LENGTH_SHORT).show();
+                            break;
+                        case SUCCESS:
+                            mLoading.setVisibility(View.GONE);
+                            Log.d("BBB",messageResponse.data);
+                            break;
+                    }
+                }
+            }
+        });
         mOrderViewModel.fetchOrder();
+
+        mOrderAdapter.setOnListenerCartItem(new OrderAdapter.OnListenerCartItem() {
+            @Override
+            public void onPlus(int position) {
+                if (position >= 0 && orderId.length() > 0){
+                    mOrderViewModel.updateOrder(orderId,mOrderAdapter.getList().get(position).getFoodId(),mOrderAdapter.getList().get(position).getQuantity() + 1);
+                }
+
+            }
+
+            @Override
+            public void onMinus(int position) {
+
+            }
+
+            @Override
+            public void onDelete(int position) {
+
+            }
+        });
     }
 }

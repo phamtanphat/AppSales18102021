@@ -43,6 +43,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
     View mLoading;
     List<FoodModel> mListFoods;
     TextView mTxtCountCart;
+    String orderId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +114,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
                             break;
                         case SUCCESS:
                             mLoading.setVisibility(View.GONE);
+                            orderId = cartModelAppResource.data.getOrderId();
                             setTotalCart(cartModelAppResource.data.getTotal());
                             break;
                     }
@@ -141,6 +143,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
+                intent.putExtra("orderId",orderId);
                 resultLauncher.launch(intent);
             }
         });

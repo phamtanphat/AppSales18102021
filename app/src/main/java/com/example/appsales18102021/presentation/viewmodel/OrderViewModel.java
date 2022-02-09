@@ -23,6 +23,7 @@ import retrofit2.Response;
 
 public class OrderViewModel extends ViewModel {
     private MutableLiveData<AppResource<OrderModel>> orderData = new MediatorLiveData<>();
+    private MutableLiveData<AppResource<String>> messageUpdate = new MediatorLiveData<>();
     private OrderRepository orderRepository;
 
     @Inject
@@ -32,6 +33,10 @@ public class OrderViewModel extends ViewModel {
 
     public LiveData<AppResource<OrderModel>> getUserModelData(){
         return orderData;
+    }
+
+    public LiveData<AppResource<String>> getCodeUpdateData(){
+        return messageUpdate;
     }
 
     public void fetchOrder(){
@@ -63,6 +68,39 @@ public class OrderViewModel extends ViewModel {
             @Override
             public void onFailure(Call<AppResource<OrderModel>> call, Throwable t) {
                 orderData.setValue(new AppResource.Error<>(t.getMessage()));
+            }
+        });
+    }
+
+    public void updateOrder(String orderId , String foodId , int quantity){
+        messageUpdate.setValue(new AppResource.Loading<>(null));
+        orderRepository.updateOrder(orderId,foodId,quantity).enqueue(new Callback<AppResource<String>>() {
+            @Override
+            public void onResponse(Call<AppResource<String>> call, Response<AppResource<String>> response) {
+                if (response.isSuccessful()){
+                    AppResource<String> data = response.body();
+                    if (data != null && data.data != null){
+                        messageUpdate.setValue(new AppResource.Success(data.data));
+                    }
+                }
+                if (response.errorBody() != null){
+                    ResponseBody errorBody = response.errorBody();
+                    try {
+                        JSONObject jsonObject = new JSONObject(errorBody.string());
+                        String message = jsonObject.getString("message");
+                        messageUpdate.setValue(new AppResource.Error<>(message));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AppResource<String>> call, Throwable t) {
+                messageUpdate.setValue(new AppResource.Error<>(t.getMessage()));
             }
         });
     }

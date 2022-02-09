@@ -3,6 +3,7 @@ package com.example.appsales18102021.presentation.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +34,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         notifyDataSetChanged();
     }
 
+    public List<FoodModel> getList(){
+        return lstFoodModel;
+    }
+
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,14 +60,46 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         ImageView img, imgDelete;
         TextView tvName,tvPrice,tvQuantity;
+        Button btnMinus, btnPlus;
 
-        public OrderViewHolder(View itemView) {
+        public OrderViewHolder(View itemView ) {
             super(itemView);
             img = itemView.findViewById(R.id.imageViewOrder);
             imgDelete = itemView.findViewById(R.id.imageDelete);
             tvName = itemView.findViewById(R.id.textViewName);
             tvPrice = itemView.findViewById(R.id.textViewPrice);
             tvQuantity = itemView.findViewById(R.id.textviewQuantity);
+            btnMinus = itemView.findViewById(R.id.btnMinus);
+            btnPlus = itemView.findViewById(R.id.btnPlus);
+
+
+            imgDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onListenerCartItem != null){
+                        onListenerCartItem.onDelete(getAdapterPosition());
+                    }
+                }
+            });
+
+            btnMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onListenerCartItem != null){
+                        onListenerCartItem.onMinus(getAdapterPosition());
+                    }
+                }
+            });
+
+            btnPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onListenerCartItem != null){
+                        onListenerCartItem.onPlus(getAdapterPosition());
+                    }
+                }
+            });
+
         }
 
         void bind(FoodModel foodModel) {
