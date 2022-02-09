@@ -13,6 +13,7 @@ public class FoodModel {
     private Integer price;
     private String cateId;
     private String cateName;
+    private int quantity;
     private String createdAt;
     private String updatedAt;
 
@@ -92,4 +93,11 @@ public class FoodModel {
         this.updatedAt = updatedAt;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

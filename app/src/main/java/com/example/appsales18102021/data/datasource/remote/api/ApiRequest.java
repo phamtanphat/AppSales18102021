@@ -3,6 +3,7 @@ package com.example.appsales18102021.data.datasource.remote.api;
 import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.CartModel;
 import com.example.appsales18102021.data.model.FoodModel;
+import com.example.appsales18102021.data.model.OrderModel;
 import com.example.appsales18102021.data.model.UserModel;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface ApiRequest {
 
     @POST("api/v1/order/add-to-cart")
     Call<AppResource<CartModel>> addToCart(@Body FoodModel foodModel);
+
+    @GET("api/v1/order/shopping-cart")
+    Call<AppResource<OrderModel>> fetchOrder();
 }

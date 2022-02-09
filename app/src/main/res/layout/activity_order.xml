@@ -7,10 +7,10 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:weightSum="5"
-    tools:context=".presentation.features.cart.CartActivity">
+    tools:context=".presentation.features.order.OrderActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarCart"
+        android:id="@+id/toolbarOrder"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#2296F3"
@@ -23,8 +23,8 @@
         android:layout_height="0dp">
         <androidx.recyclerview.widget.RecyclerView
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_cart"
-            android:id="@+id/recyclerView"
+            tools:listitem="@layout/item_order"
+            android:id="@+id/recyclerViewOrder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

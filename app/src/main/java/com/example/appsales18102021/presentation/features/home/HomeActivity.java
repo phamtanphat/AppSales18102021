@@ -21,7 +21,7 @@ import com.example.appsales18102021.data.datasource.remote.AppResource;
 import com.example.appsales18102021.data.model.CartModel;
 import com.example.appsales18102021.data.model.FoodModel;
 import com.example.appsales18102021.presentation.adapter.FoodAdapter;
-import com.example.appsales18102021.presentation.features.cart.CartActivity;
+import com.example.appsales18102021.presentation.features.order.OrderActivity;
 import com.example.appsales18102021.presentation.features.login.LoginActivity;
 import com.example.appsales18102021.presentation.viewmodel.HomeViewModel;
 
@@ -140,7 +140,7 @@ public class HomeActivity extends DaggerAppCompatActivity {
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+                Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
                 resultLauncher.launch(intent);
             }
         });

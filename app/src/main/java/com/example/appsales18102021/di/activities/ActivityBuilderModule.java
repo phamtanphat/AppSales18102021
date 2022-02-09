@@ -2,7 +2,8 @@ package com.example.appsales18102021.di.activities;
 
 import com.example.appsales18102021.di.viewmodels.AuthViewModelModule;
 import com.example.appsales18102021.di.viewmodels.FoodViewModelModule;
-import com.example.appsales18102021.presentation.features.cart.CartActivity;
+import com.example.appsales18102021.di.viewmodels.OrderViewModelModule;
+import com.example.appsales18102021.presentation.features.order.OrderActivity;
 import com.example.appsales18102021.presentation.features.home.HomeActivity;
 import com.example.appsales18102021.presentation.features.login.LoginActivity;
 import com.example.appsales18102021.presentation.features.register.RegisterActivity;
@@ -32,6 +33,8 @@ public abstract class ActivityBuilderModule {
     )
     public abstract HomeActivity bindContributeHomeActivity();
 
-    @ContributesAndroidInjector
-    public abstract CartActivity bindContributeCartActivity();
+    @ContributesAndroidInjector(
+        modules = OrderViewModelModule.class
+    )
+    public abstract OrderActivity bindContributeOrderActivity();
 }

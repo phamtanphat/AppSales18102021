@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppSales18102021">
         <activity
-            android:name=".presentation.features.cart.CartActivity"
+            android:name=".presentation.features.order.OrderActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.features.home.HomeActivity"
